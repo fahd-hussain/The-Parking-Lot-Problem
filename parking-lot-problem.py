@@ -1,6 +1,10 @@
+# n = 0
+# m = 0
+n = input("Enter Colum size: " )
+m = input("Enter Row size: ")
 parkingLot = {
-	'cols':		 7,
-	'rows':		 5,
+	'cols': int(n),
+	'rows':	int(m),
 }
 
 def rotate_clockwise(shape):
@@ -46,11 +50,33 @@ def parking_lot(parking, car, rotate):
 
 def check_availablity(parking):
     checked = draw_Matrix(1, 1, 0)
+    # print(checked, parking)
+
     for x in range(parkingLot['cols']):
         for y in range(parkingLot['rows']):
-            if ( check_collision(parking, checked, (x,y)) ):
+            if ( check_collision(parking, checked, (x, y)) ):
                 return True
+            else:
+                return False
     return False
+
+def check_parking_lot(parking, car_space):
+    mat1 = draw_Matrix(1, 1, 0)
+    blank_space = False
+    sum = 0
+
+    for x in range(parkingLot['cols']):
+        for y in range(parkingLot['rows']):
+            # sum += parking[y][x]
+            if (parking[y][x] == mat1[0][0]):
+                blank_space = True
+            
+    # print("sum = ", sum)
+    if ( blank_space and car_space != sum ):
+        return
+    else:     
+        print(parking)
+
 
 def show_parking_lot(parking):
     for i in parking:
@@ -78,44 +104,45 @@ def gen_seq(string, index):
         gen_seq(string, index + 1)  
 
 def main():
-    parking = draw_Matrix(parkingLot['cols'], parkingLot['rows'], 0)
-    j = 7
-
-    car_config = [(4, 2), (3, 2), (1, 2), (2, 5), (2, 2), (2, 1), (3, 1)]
+    j = input("Number of inputs: ")
+    j = int(j)
+    car_config = []
+    for n in range(j):
+        lenght = input("length: ")
+        width = input("width: ")
+        temp = (int(lenght), int(width))
+        car_config.append(temp)
+    # car_config = [(4, 2), (3, 2), (1, 2), (2, 5), (2, 2), (2, 1), (3, 1)]
     cars = []
-    # for i in range(j):
+    car_space = 0
+    a = [i for i in range(j+1)]
+    k = 1
+    for i in car_config:
+        car_space += i[0] * i[1] * a[k]
+        k += 1
+
     for i in range(j):
         carLen = car_config[i][0]
         carWid = car_config[i][1]
         car = draw_Matrix(carLen, carWid, i+1)
         cars.append(car)
 
-    # print(cars)
-    # ro = [[0,1,1,0,0,1,1], [0,1,1,0,0,1,0], [0,1,1,0,0,0,0]]
     string = "???????"
     string = list(string)
     gen_seq(string, 0)
     ro = parking_sequence
-    rotate = "0110011"
     count = 0
 
     for index in ro:
-        print(index)
-    # while ( count < (60) ):
         print(count)
+        parking = draw_Matrix(parkingLot['cols'], parkingLot['rows'], 0)
         for i in range(j):
-            # print(index[i])
             if ( check_availablity(parking) ):
-                # print(ro[count][i])
                 parking_lot(parking, cars[i], index[i])
-            # print(parking)
-                # parking_lot(parking, cars[i], ro[count][i])
-            print(parking)
+        check_parking_lot(parking, car_space)
+        
         count = count + 1
-    return parking
 
 main()
-# pko = main()
-# show_parking_lot(pko)
 
 #   0110011
