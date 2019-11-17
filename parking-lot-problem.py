@@ -1,5 +1,7 @@
-n = input("Enter Colum size: " )
-m = input("Enter Row size: ")
+temp = input().split("\t")
+# print(temp)
+n = temp[0]
+m = temp[1]
 parkingLot = {
 	'cols': int(n),
 	'rows':	int(m),
@@ -94,12 +96,13 @@ def gen_seq(string, index):
         gen_seq(string, index + 1)  
 
 def main():
-    j = input("Number of inputs: ")
+    j = input()
     j = int(j)
     car_config = []
     for n in range(j):
-        lenght = input("length: ")
-        width = input("width: ")
+        temp = input().split("\t")
+        lenght = temp[0]
+        width = temp[1]
         temp = (int(lenght), int(width))
         car_config.append(temp)
     cars = []
