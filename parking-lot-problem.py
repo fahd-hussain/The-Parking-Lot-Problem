@@ -1,7 +1,7 @@
 temp = input().split("\t")
 # print(temp)
-n = temp[0]
-m = temp[1]
+m = temp[0]
+n = temp[1]
 parkingLot = {
 	'cols': int(n),
 	'rows':	int(m),
@@ -75,7 +75,8 @@ def check_parking_lot(parking, car_space):
 
 def show_parking_lot(parking):
     for j in parking:
-        print(*j)
+        print(*j, '\t')
+    print("\n")
 
 parking_sequence = []
 def gen_seq(string, index): 
